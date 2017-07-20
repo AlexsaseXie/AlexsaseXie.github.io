@@ -2,4 +2,4 @@
 
 <a href="">Main Page</a>
 
-<a href="Smove/smove.html">Smove</a>
+<a href="/Smove/smove.html">Smove</a>
