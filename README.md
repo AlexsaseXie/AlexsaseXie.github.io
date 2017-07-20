@@ -1,5 +1,5 @@
 # AlexsaseXie.github.io
 
-<a href="alexsasexie.github.io">Main Page</a>
+<a href="">Main Page</a>
 
-<a href="alexsasexie.github.io/Smove/smove.html">Smove</a>
+<a href="Smove/smove.html">Smove</a>
