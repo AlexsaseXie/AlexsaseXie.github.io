@@ -8,7 +8,7 @@ var startX = 0, startY = 0;
             function touchStartFunc(evt) {
                 try
                 {
-                    //evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
+                    evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
 
                     var touch = evt.touches[0]; //获取第一个触点
                     var x = Number(touch.pageX); //页面触点X坐标
@@ -29,7 +29,7 @@ var startX = 0, startY = 0;
             function touchMoveFunc(evt) {
                 try
                 {
-                    //evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
+                    evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
                     var touch = evt.touches[0]; //获取第一个触点
                     var x = Number(touch.pageX); //页面触点X坐标
                     var y = Number(touch.pageY); //页面触点Y坐标
@@ -37,7 +37,6 @@ var startX = 0, startY = 0;
                     var text = 'TouchMove事件触发：（' + x + ', ' + y + '）';
                     
                     var div = document.getElementById("gameArea");
-
                     if (fireLock === true)
                         return;
 
@@ -78,7 +77,7 @@ var startX = 0, startY = 0;
             //touchend事件
             function touchEndFunc(evt) {
                 try {
-                    //evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
+                    evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
                     fireLock = false;
                     console.log("end!");
                 }
