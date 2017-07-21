@@ -193,6 +193,12 @@ var levelUpDoThings = function()
 
 var crashDoThings = function()
 {
+    //清除得分块
+    while(pointList.length > 0)
+    {
+        pointList[0].clearPoint();
+        pointList.shift();
+    }
     //清除主计时器
     clearInterval(mainInterval);
     mainInterval = null;
