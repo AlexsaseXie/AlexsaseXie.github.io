@@ -138,7 +138,7 @@ var getPointMoniter = function()
                 levelUpDoThings();
             //插入一个新的得分块
             else 
-                generateNewPoint();
+                generateNewPoint(0);
             //删掉这个得分块
             pointList.splice(i,1);
             i = i-1;
