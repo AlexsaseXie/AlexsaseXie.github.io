@@ -17,7 +17,6 @@ var levelText = new LevelText();
 
 
 
-
 function initBackground()
 {
     drawBackground();
@@ -119,10 +118,7 @@ var crashMoniter = function()
         var wy = roundRectY + (whiteY - 0.5) * roundRectSize / K;
         if (Math.sqrt((bx-wx)*(bx-wx) + (by-wy)*(by-wy)) < (blackBallList[i].R + whiteBallR))
         {
-            clearInterval(mainInterval);
-            mainInterval = null;
-            clearInterval(whiteBallMoveInterval);
-            clearInterval(levelTextInterval);
+            crashDoThings();
         }
     }
 }
@@ -187,11 +183,26 @@ var levelTextUpdate = function()
 var levelUpDoThings = function()
 {
     level ++;
-    clearBlackBalls();
+    clearNotProducedBlackBalls();
     levelTextInterval = setInterval(levelTextUpdate,1000/fps);
     startChangeBackground();
     startGenerateBlackBall(changeBackgroundTimeScale);
     generateNewPoint(changeBackgroundTimeScale);
+}
+
+var crashDoThings = function()
+{
+    //清除主计时器
+    clearInterval(mainInterval);
+    mainInterval = null;
+    clearInterval(whiteBallMoveInterval);
+    clearInterval(levelTextInterval);
+    levelText.currentAlpha = 0;
+    levelText.currentFrame = 0;
+
+    //进入BackCover状态
+    state = 2;
+    startDrawBackCover();
 }
 
 //白球移动的计时器
@@ -299,9 +310,6 @@ var levelD;
 //当前还待产生的黑球的列表
 var levelBlackBallIntervals = [];
 
-console.log(levelBlackBallIntervals);
-
-
 //产生黑色小球
 var startGenerateBlackBall = function(waitScale)
 {
@@ -312,7 +320,6 @@ var startGenerateBlackBall = function(waitScale)
         levelBlackBallIntervals.push(iInterval);
     }
 }
-
 var generateOneBlackBall = function(i)
 {
     blackBallList.push(levelD.blackBallList[i]);
@@ -323,50 +330,12 @@ var _generateOneBlackBall = function(i)
     return function(){generateOneBlackBall(i);};
 }
 
-
-//到达下一关时 清空尚未产生的黑球
-var clearBlackBalls = function()
-{
-    for(var i=0;i<levelBlackBallIntervals.length;i++)
-    {
-        clearInterval(levelBlackBallIntervals[i]);
-        levelBlackBallIntervals.splice(i,1);
-        i--;
-    }
-}
-
-
-function init()
-{
-    //显示背景
-    initBackground();
-    //显示中间的游戏区域
-    initCenter();
-    //显示分数
-    initScore();
-    //显示白球
-    drawWhiteBall();
-
-    //启动主计时器
-    mainInterval = setInterval(update,1000/fps);
-    //显示关卡信息
-    levelTextInterval = setInterval(levelTextUpdate,1000/fps);
-
-    //插入第一个得分块
-    generateNewPoint(0);
-
-    //开始关卡设计
-    startGenerateBlackBall(0);
-}
-
-
 //产生新的得分块
 var generatePointIndex = 0;
 var generateNewPoint = function(waitTime)
 {
     setTimeout(_generatePoint(),waitTime);
 }
-
 var generatePoint = function()
 {
     generatePointIndex += 1;
@@ -399,4 +368,90 @@ var generatePoint = function()
 var _generatePoint = function()
 {
     return function(){generatePoint();};
+}
+
+//到达下一关时 清空尚未产生的黑球
+var clearNotProducedBlackBalls = function()
+{
+    for(var i=0;i<levelBlackBallIntervals.length;i++)
+    {
+        clearInterval(levelBlackBallIntervals[i]);
+        levelBlackBallIntervals.splice(i,1);
+        i--;
+    }
+}
+
+
+function init()
+{
+    switch (state)
+    {
+        case 0:
+        {
+            drawFrontCover();
+            break;
+        }
+        case 1:
+        {
+            //显示背景
+            initBackground();
+            //显示中间的游戏区域
+            initCenter();
+            //显示分数
+            initScore();
+            //显示白球
+            drawWhiteBall();
+
+            //启动主计时器
+            mainInterval = setInterval(update,1000/fps);
+            //显示关卡信息
+            levelTextInterval = setInterval(levelTextUpdate,1000/fps);
+
+            //插入第一个得分块
+            generateNewPoint(0);
+
+            //开始关卡设计
+            startGenerateBlackBall(0);
+            break;
+        }
+        case 2:
+        {
+            startDrawBackCover();
+            break;
+        }
+    }
+}
+
+function clearAll()
+{
+    score = 0;
+    level = 1;
+    generatePointIndex = 0;
+    //白球归位
+    whiteBallMoveTime = -1;
+    whiteX = 2;
+    whiteY = 2;
+    //清空未产生的黑球
+    clearNotProducedBlackBalls();
+    //清空场上的黑球
+    while(blackBallList.length > 0)
+    {
+        blackBallList.pop();
+    }
+    //清空得分块
+    while(pointList.length > 0)
+    {
+        pointList.pop();
+    }
+    //清空+1
+    while (getPointTextList.length > 0)
+    {
+        getPointTextList.pop();
+    }
+    //清空各个画布
+    var canvases = document.getElementsByTagName("canvas");
+    for (let i=0;i<canvases.length;i++)
+    {
+        canvases[i].height = canvases[i].height;
+    }
 }

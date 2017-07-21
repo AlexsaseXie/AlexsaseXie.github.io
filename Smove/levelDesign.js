@@ -23,7 +23,7 @@ var LevelDesign = function(nowLevel)
     this.blackBallList = [];
     this.timeList = [];
 
-    switch(nowLevel)
+    switch((nowLevel-1) % 4 + 1)
     {
         case 1:
         {

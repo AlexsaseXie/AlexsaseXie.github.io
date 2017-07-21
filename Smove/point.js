@@ -100,7 +100,7 @@ PlusText.prototype.drawText = function()
 {
     let ctx = document.getElementById("point").getContext("2d");
     //绘制+1
-    ctx.font = 'bold 15px Arial';
+    ctx.font = 'bold 20px Moonlight';
     ctx.save();
 
     ctx.textAlign = 'left';
@@ -116,6 +116,6 @@ PlusText.prototype.clearText = function()
 {
     let ctx = document.getElementById("point").getContext("2d");
     //清除+1
-    ctx.clearRect(this.posX,this.posY - 15, 40 , 20);
+    ctx.clearRect(this.posX,this.posY - 20, 40 , 20 + 5);
 }
 

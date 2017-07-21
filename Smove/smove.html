@@ -2,6 +2,8 @@
 <html>
     <head>
         <script type='text/javascript' src='const.js'> </script>
+        <script type='text/javascript' src='stackblur.js'> </script>
+        <script type='text/javascript' src='cover.js'> </script>
         <script type='text/javascript' src='background.js'> </script>
         <script type='text/javascript' src='blackBall.js'> </script>
         <script type='text/javascript' src='whiteBall.js'> </script>
@@ -9,20 +11,27 @@
         <script type='text/javascript' src='score.js'> </script>
         <script type='text/javascript' src='levelDesign.js'> </script>
         <script type='text/javascript' src='smove.js'> </script>
+        <link rel="stylesheet" href="css/smove.css" type="text/css" />
     </head>
-    <body onload = "init()" onkeyup="dealKeyEvent()">
-            <canvas id ='background' width="400" height="600" style="position:absolute">
+    <body onload = "setCanvasArea();init();calcGamePos();" onkeyup="dealKeyEvent()" >
+        <div id="gameArea" onmouseup="dealMouseUpEvent()">
+            <canvas id ='background' >
             </canvas>
-            <canvas id ='score' width="400" height="600" style="position:absolute">
+            <canvas id ='score'  >
             </canvas>
-            <canvas id ='center' width="400" height="600" style="position:absolute">
+            <canvas id ='center'  >
             </canvas>
-            <canvas id ='whiteBall' width="400" height="600" style="position:absolute">
+            <canvas id ='whiteBall' >
             </canvas>
-            <canvas id ='point' width="400" height="600" style="position:absolute">
+            <canvas id ='point' >
             </canvas>
-            <canvas id ='blackBall' width="400" height="600" style="position:absolute">
+            <canvas id ='blackBall' >
             </canvas>
+            <canvas id ='preCover' >
+            </canvas>
+            <canvas id ='cover'  >
+            </canvas>
+        </div>
     </body>
 </html>
 

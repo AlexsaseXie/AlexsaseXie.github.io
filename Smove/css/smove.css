@@ -1,0 +1,6 @@
+@font-face { font-family: Moonlight; src: url('../font/Moonlight.ttf'); } 
+
+
+canvas { position: absolute; }
+
+#gameArea {margin: 0 auto; width: 400px; height: 600px;}
