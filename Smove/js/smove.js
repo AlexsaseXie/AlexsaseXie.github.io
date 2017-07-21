@@ -193,12 +193,9 @@ var levelUpDoThings = function()
 
 var crashDoThings = function()
 {
-    //清除得分块
-    while(pointList.length > 0)
-    {
-        pointList[0].clearPoint();
-        pointList.shift();
-    }
+
+    //清除刷新计时器
+    clearInterval(changeBackgroundInterval);
     //清除主计时器
     clearInterval(mainInterval);
     mainInterval = null;
@@ -343,9 +340,10 @@ var _generateOneBlackBall = function(i)
 
 //产生新的得分块
 var generatePointIndex = 0;
+var generatePointInterval;
 var generateNewPoint = function(waitTime)
 {
-    setTimeout(_generatePoint(),waitTime);
+    generatePointInterval = setTimeout(_generatePoint(),waitTime);
 }
 var generatePoint = function()
 {
@@ -454,6 +452,8 @@ function clearAll()
     {
         pointList.pop();
     }
+    //清除待产生的得分块
+    clearInterval(generatePointInterval);
     //清空+1
     while (getPointTextList.length > 0)
     {
