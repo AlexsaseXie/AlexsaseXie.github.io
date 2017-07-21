@@ -5,8 +5,15 @@ var K = 3;
 var viewRate = 1;
 
 //处理手机端的缩放问题
-if (document.documentElement.clientWidth < document.documentElement.clientHeight)
+var u = navigator.userAgent;
+var m1 = u.match("Mobile")
+var m2 = u.match("mobile")  //是否为移动终端
+if (m1 || m2)
+{
+    console.log(m1,m2);
+    console.log("IsMobile!");
     viewRate = document.documentElement.clientWidth / 400;
+}
 
 var gameX = 0;
 var gameY = 0;
