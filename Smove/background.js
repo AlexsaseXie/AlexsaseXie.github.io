@@ -1,3 +1,5 @@
+'use strict'
+
 var backgroundColorList = ["#EEEE00","#AEEEEE","#C0FF3E","#98F5FF","#FFBBFF"];
 var rate = 3/5;
 

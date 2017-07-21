@@ -1,3 +1,4 @@
+'use strict'
 var pointRectSize = 12;
 var growSpeed = 1.5 * pointRectSize / (1000/fps);
 var spinSpeed = 20.0 / (1000/fps);

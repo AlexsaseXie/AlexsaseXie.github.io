@@ -1,3 +1,4 @@
+'use strict'
 var fps = 80;
 var K = 3;
 

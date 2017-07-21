@@ -1,3 +1,5 @@
+'use strict'
+
 var roundRectSize = 150;
 var roundRectR = 40;
 var roundRectX = (gameWidth-roundRectSize)/2;

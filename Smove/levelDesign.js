@@ -1,3 +1,5 @@
+'use strict'
+
 var NumPattern = [1,2];
 var SpeedPattern = ["same","1_higher","2_higher"];
 var DirectionPattern = ["same","counter"];

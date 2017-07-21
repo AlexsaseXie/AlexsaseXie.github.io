@@ -1,3 +1,4 @@
+'use strict'
 function drawBestScore()
 {
     var canvas = document.getElementById("score"),

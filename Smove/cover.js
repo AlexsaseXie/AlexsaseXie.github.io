@@ -1,3 +1,4 @@
+'use strict'
 var frontCoverRectX,frontCoverRectY,frontCoverRectWidth,frontCoverRectHeight;
 var backCoverRectX,backCoverRectY,backCoverRectWidth,backCoverRectHeight; 
 

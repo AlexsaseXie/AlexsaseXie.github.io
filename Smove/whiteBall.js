@@ -1,3 +1,5 @@
+'use strict'
+
 var whiteBallR = 13 * 3/K;
 var whiteX = 2;
 var whiteY = 2;
