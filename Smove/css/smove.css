@@ -3,4 +3,4 @@
 
 canvas { position: absolute; }
 
-#gameArea {margin: 0 auto; width: 400px; height: 600px;}
+#gameArea { position: absolute; }
