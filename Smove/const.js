@@ -24,12 +24,21 @@ CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
     return this;
 }
 
-var myFontM = new FontFace('Moonlight', 'url(font/Moonlight.ttf)');
-myFontM.load().then(function(font){
+//尝试加载字体
+try
+{
+    var myFontM = new FontFace('Moonlight', 'url(font/Moonlight.ttf)');
+    myFontM.load().then(function(font){
     // with canvas, if this is ommited won't work
     document.fonts.add(font);
     console.info('load finish');
-});
+    });
+}
+catch(e)
+{
+
+}
+
 
 var setCanvasArea = function()
 {
