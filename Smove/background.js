@@ -3,7 +3,7 @@ var rate = 3/5;
 
 var drawBackground = function()
 {
-    let canvas = document.getElementById("background"),
+    var canvas = document.getElementById("background"),
         ctx = canvas.getContext("2d");        
 
     //绘制背景
@@ -68,7 +68,7 @@ var changeBackground = function()
     var preIndex = (level + backgroundColorList.length - 2) % backgroundColorList.length;
     var ppreIndex = (level + backgroundColorList.length - 3) % backgroundColorList.length;
 
-    let ctx = document.getElementById("background").getContext("2d");
+    var ctx = document.getElementById("background").getContext("2d");
     //下方的渐变区域还未划出屏幕
     if (downDivision <= gameHeight)
     {

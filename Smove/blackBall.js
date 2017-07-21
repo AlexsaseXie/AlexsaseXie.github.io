@@ -28,7 +28,7 @@ BlackBall.prototype.drawBlackBall = function()
 { 
     //this.drawTail();
     
-    let blackBallCtx = document.getElementById("blackBall").getContext("2d");
+    var blackBallCtx = document.getElementById("blackBall").getContext("2d");
 
     blackBallCtx.strokeStyle = "black";
     blackBallCtx.fillStyle = "black";
@@ -44,14 +44,14 @@ BlackBall.prototype.drawBlackBall = function()
 BlackBall.prototype.clearBlackBall = function()
 {
     //this.clearTail();
-    let blackBallCtx = document.getElementById("blackBall").getContext("2d");
+    var blackBallCtx = document.getElementById("blackBall").getContext("2d");
     blackBallCtx.clearRect(this.blackX - this.R - 2 , this.blackY - this.R - 2 ,  2 * (this.R+2) , 2 * (this.R+2) );
 
 }
 
 BlackBall.prototype.drawTail = function()
 {
-    let blackBallCtx = document.getElementById("blackBall").getContext("2d");
+    var blackBallCtx = document.getElementById("blackBall").getContext("2d");
 
     blackBallCtx.save();
 
@@ -77,7 +77,7 @@ BlackBall.prototype.drawTail = function()
 
 BlackBall.prototype.clearTail = function()
 {
-    let blackBallCtx = document.getElementById("blackBall").getContext("2d");
+    var blackBallCtx = document.getElementById("blackBall").getContext("2d");
 
     blackBallCtx.save();
 

@@ -42,8 +42,8 @@ catch(e)
 
 var setCanvasArea = function()
 {
-    let allC = document.getElementsByTagName("canvas");
-    for (let i=0;i<allC.length;i++)
+    var allC = document.getElementsByTagName("canvas");
+    for (var i=0;i<allC.length;i++)
     {
         allC[i].width = gameWidth;
         allC[i].height = gameHeight;
@@ -52,7 +52,7 @@ var setCanvasArea = function()
 
 var calcGamePos = function()
 {
-    let div = document.getElementById("gameArea");
+    var div = document.getElementById("gameArea");
     gameX = div.scrollLeft || div.offsetLeft;
     gameY = div.scrollTop || div.offsetTop;
 }

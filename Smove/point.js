@@ -24,7 +24,7 @@ Point.prototype.spin = function()
 
 Point.prototype.drawPoint = function()
 {
-    let pointCtx = document.getElementById("point").getContext("2d");
+    var pointCtx = document.getElementById("point").getContext("2d");
 
     if (this.type == 0)
     {
@@ -51,7 +51,7 @@ Point.prototype.drawPoint = function()
 
 Point.prototype.clearPoint = function()
 {
-    let pointCtx = document.getElementById("point").getContext("2d");
+    var pointCtx = document.getElementById("point").getContext("2d");
 
     pointCtx.save();
 
@@ -98,7 +98,7 @@ PlusText.prototype.goUp = function()
 
 PlusText.prototype.drawText = function()
 {
-    let ctx = document.getElementById("point").getContext("2d");
+    var ctx = document.getElementById("point").getContext("2d");
     //绘制+1
     ctx.font = 'bold 20px Moonlight';
     ctx.save();
@@ -114,7 +114,7 @@ PlusText.prototype.drawText = function()
 
 PlusText.prototype.clearText = function()
 {
-    let ctx = document.getElementById("point").getContext("2d");
+    var ctx = document.getElementById("point").getContext("2d");
     //清除+1
     ctx.clearRect(this.posX,this.posY - 20, 40 , 20 + 5);
 }

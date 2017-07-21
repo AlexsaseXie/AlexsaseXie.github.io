@@ -3,7 +3,7 @@ var backCoverRectX,backCoverRectY,backCoverRectWidth,backCoverRectHeight;
 
 var drawFrontCover = function()
 {
-    let canvas = document.getElementById("cover"),
+    var canvas = document.getElementById("cover"),
         ctx = canvas.getContext("2d");        
 
     //绘制背景
@@ -51,7 +51,7 @@ var drawFrontCover = function()
 
 var clearFrontCover = function()
 {
-    let canvas = document.getElementById("cover"),
+    var canvas = document.getElementById("cover"),
         ctx = canvas.getContext("2d");
     ctx.clearRect(0,0,gameWidth,gameHeight);
 }
@@ -63,8 +63,8 @@ var pickGameArea = function()
     //绘制背景
     //拾取当前游戏区域的RGB值
     var imageDataTmp;
-    let allC = document.getElementsByTagName("canvas");
-    for (let i=0;i<allC.length;i++)
+    var allC = document.getElementsByTagName("canvas");
+    for (var i=0;i<allC.length;i++)
     {
         if (allC[i].id == "cover")
             continue;
@@ -73,7 +73,7 @@ var pickGameArea = function()
         else
         {
             imageDataTmp = allC[i].getContext("2d").getImageData(0,0,gameWidth,gameHeight);
-            for (let j=0;j<imageDataTmp.data.length;j +=4)
+            for (var j=0;j<imageDataTmp.data.length;j +=4)
             {
                 if ( imageDataTmp.data[j+3] != 0)
                 {
@@ -95,10 +95,10 @@ var blurInterval;
 
 var drawBackCover = function()
 {
-    let canvas = document.getElementById("cover"),
+    var canvas = document.getElementById("cover"),
         ctx = canvas.getContext("2d");
 
-    let preCanvas = document.getElementById("preCover"),
+    var preCanvas = document.getElementById("preCover"),
     preCtx = preCanvas.getContext("2d");
 
     //获取游戏区域的内容
@@ -152,8 +152,8 @@ var drawBackCover = function()
 
 var clearBackCover = function()
 {
-    let ctx = document.getElementById("cover").getContext("2d");
-    let preCtx = document.getElementById("preCover").getContext("2d");
+    var ctx = document.getElementById("cover").getContext("2d");
+    var preCtx = document.getElementById("preCover").getContext("2d");
 
     ctx.clearRect(0,0,gameWidth,gameHeight);
     preCtx.clearRect(0,0,gameWidth,gameHeight);

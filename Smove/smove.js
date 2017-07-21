@@ -32,7 +32,7 @@ function initScore()
 
 function initCenter()
 {
-    let centerCanvas = document.getElementById("center"),centerCtx = centerCanvas.getContext("2d");
+    var centerCanvas = document.getElementById("center"),centerCtx = centerCanvas.getContext("2d");
 
     centerCtx.strokeStyle = "grey";
     centerCtx.lineWidth = 4;
@@ -339,10 +339,10 @@ var generateNewPoint = function(waitTime)
 var generatePoint = function()
 {
     generatePointIndex += 1;
-    let wx = Math.round(whiteX);
-    let wy = Math.round(whiteY);
-    let i,j;
-    let point = [];
+    var wx = Math.round(whiteX);
+    var wy = Math.round(whiteY);
+    var i,j;
+    var point = [];
     //把距离>1的点插入候选
     for (i=1;i<=K;i++)
     {
@@ -353,10 +353,10 @@ var generatePoint = function()
         }
     }
     //随机选出候选中的一个
-    let t = Math.random() * point.length;
+    var t = Math.random() * point.length;
     t = Math.floor(t);
 
-    let type = 0;
+    var type = 0;
     if (generatePointIndex == 10)
     {
         type = 1;
@@ -450,7 +450,7 @@ function clearAll()
     }
     //清空各个画布
     var canvases = document.getElementsByTagName("canvas");
-    for (let i=0;i<canvases.length;i++)
+    for (var i=0;i<canvases.length;i++)
     {
         canvases[i].height = canvases[i].height;
     }

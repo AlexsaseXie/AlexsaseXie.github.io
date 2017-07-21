@@ -79,7 +79,7 @@ whiteBallMove.push(function()
 
 function drawWhiteBall()
 {
-    let whiteBallCanvas = document.getElementById("whiteBall"),whiteBallCtx = whiteBallCanvas.getContext("2d");
+    var whiteBallCanvas = document.getElementById("whiteBall"),whiteBallCtx = whiteBallCanvas.getContext("2d");
 
     whiteBallCtx.strokeStyle = "#F0FFFF";
     whiteBallCtx.fillStyle = "#F0FFFF";
@@ -93,6 +93,6 @@ function drawWhiteBall()
 
 function clearWhiteBall()
 {
-    let whiteBallCtx = document.getElementById("whiteBall").getContext("2d");
+    var whiteBallCtx = document.getElementById("whiteBall").getContext("2d");
     whiteBallCtx.clearRect(roundRectX + (whiteX - 0.5) * roundRectSize / K - whiteBallR - 2 , roundRectY + (whiteY - 0.5) * roundRectSize / K - whiteBallR - 2 ,  2 * (whiteBallR+2) , 2 * (whiteBallR+2) );
 }

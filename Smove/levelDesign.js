@@ -28,7 +28,7 @@ var LevelDesign = function(nowLevel)
         case 1:
         {
             this.length = 10;
-            for (let j=0;j<this.length;j++)
+            for (var j=0;j<this.length;j++)
             {
                 this.patternList.push(new BlackBallPattern([1,"same","same","random"],1.5 * (j+1) * 1000));
             }
@@ -37,7 +37,7 @@ var LevelDesign = function(nowLevel)
         case 2:
         {
             this.length = 20;
-            for (let j=0;j<this.length;j++)
+            for (var j=0;j<this.length;j++)
             {
                 if (j % 3 == 0)
                     this.patternList.push(new BlackBallPattern([1,"same","same","random"],1 * (j+1) * 1000));
@@ -50,7 +50,7 @@ var LevelDesign = function(nowLevel)
         case 3:
         {
             this.length = 10;
-            for (let j=0;j<this.length;j++)
+            for (var j=0;j<this.length;j++)
             {
                 if (j % 2 == 0)
                     this.patternList.push(new BlackBallPattern([2,"same","same","neighbor"],1 * (j+1) * 1000));
@@ -70,7 +70,7 @@ var LevelDesign = function(nowLevel)
         }
     }
 
-    for (let i=0;i<this.length;i++)
+    for (var i=0;i<this.length;i++)
         this.process(i);
 }
 
@@ -178,9 +178,9 @@ LevelDesign.prototype.speedRandom = function(i)
 //将第i个pattern中的黑色球信息插入黑色球列表中
 LevelDesign.prototype.insertToList = function(i,place,direction,speed)
 {
-    let len = this.patternList[i].pattern[0];
+    var len = this.patternList[i].pattern[0];
     //分别处理这Pattern中的每个黑球
-    for (let j=0;j<len;j++)
+    for (var j=0;j<len;j++)
     {
         var bx,by,spx,spy;
         if (direction[j] == 0)// 左/上

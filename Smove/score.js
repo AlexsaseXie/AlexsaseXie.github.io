@@ -1,6 +1,6 @@
 function drawBestScore()
 {
-    let canvas = document.getElementById("score"),
+    var canvas = document.getElementById("score"),
         ctx = canvas.getContext("2d"); 
     //绘制得分数
     ctx.font = 'bold 20px Moonlight';
@@ -12,7 +12,7 @@ function drawBestScore()
 
 function clearBestScore()
 {
-    let canvas = document.getElementById("score"),
+    var canvas = document.getElementById("score"),
         ctx = canvas.getContext("2d"); 
     //清除得分数
     ctx.clearRect(20,10,200,20); 
@@ -20,7 +20,7 @@ function clearBestScore()
 
 function drawScore()
 {
-    let canvas = document.getElementById("score"),
+    var canvas = document.getElementById("score"),
         ctx = canvas.getContext("2d"); 
     //绘制得分数
     ctx.font = 'bold 50px Moonlight';
@@ -32,7 +32,7 @@ function drawScore()
 
 function clearScore()
 {
-    let canvas = document.getElementById("score"),
+    var canvas = document.getElementById("score"),
         ctx = canvas.getContext("2d"); 
     //清除得分数
     ctx.clearRect(20,50,200,50 + 5);
@@ -66,7 +66,7 @@ LevelText.prototype.showLevel = function()
 
 LevelText.prototype.drawLevel = function()
 {
-    let canvas = document.getElementById("score"),
+    var canvas = document.getElementById("score"),
         ctx = canvas.getContext("2d"); 
     //绘制Level提示信息
     ctx.save();
@@ -83,7 +83,7 @@ LevelText.prototype.drawLevel = function()
 
 LevelText.prototype.clearLevel = function()
 {
-    let canvas = document.getElementById("score"),
+    var canvas = document.getElementById("score"),
         ctx = canvas.getContext("2d"); 
 
     ctx.clearRect(roundRectX,roundRectY - 10 - 20 ,200,20 + 5);
