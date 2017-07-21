@@ -9,7 +9,7 @@ var drawBackground = function()
         ctx = canvas.getContext("2d");        
 
     //绘制背景
-    var divisionY = gameHeight * rate;
+    var divisionY = Math.round(gameHeight * rate);
 
     var index = (level + backgroundColorList.length - 1) % backgroundColorList.length;
     var preIndex = (level + backgroundColorList.length - 2) % backgroundColorList.length;
@@ -20,12 +20,12 @@ var drawBackground = function()
     ctx.fillRect(0,0,gameWidth,divisionY);
 
     //线性渐变区域
-    var lGrd = ctx.createLinearGradient(gameWidth/2,divisionY,gameWidth/2,gameHeight);
+    var lGrd = ctx.createLinearGradient(gameWidth/2 ,divisionY,gameWidth/2, gameHeight);
     lGrd.addColorStop(0,backgroundColorList[index]);
     lGrd.addColorStop(1,backgroundColorList[preIndex]);
     ctx.fillStyle = lGrd;
-    ctx.fillRect(0,divisionY,gameWidth,gameHeight - divisionY);
-    
+    ctx.fillRect(0, divisionY, gameWidth,gameHeight - divisionY);
+
     return true;
 }
 
@@ -35,23 +35,25 @@ var changeBackCurrentScale = 0;
 
 var moveSpeed = (gameHeight/changeBackgroundTimeScale) * (1000/fps) ;
 
-var upDivision = - gameHeight * rate;
-var downDivision = gameHeight * (1-rate);
+var upDivision = - gameHeight * (1-rate);
+var downDivision = gameHeight * rate ;
 
 var startChangeBackground = function()
 {   
     //设置背景滚动计时器
     changeBackgroundInterval = setInterval(changeBackground,1000/fps);
     //滚动完后清除计时器
-    setTimeout(endChangeBackground,changeBackgroundTimeScale);
+    setTimeout(endChangeBackground,changeBackgroundTimeScale + 200);
 }
 
 var endChangeBackground = function()
 {
     changeBackCurrentScale = 0;
 
-    upDivision = - gameHeight * rate;
-    downDivision = gameHeight * (1-rate);
+    console.log(upDivision,gameHeight * rate);
+
+    upDivision = - gameHeight * (1-rate);
+    downDivision = gameHeight * rate;
     clearInterval(changeBackgroundInterval);
     //确认一下背景绘制正确
     drawBackground();
@@ -62,9 +64,14 @@ var changeBackground = function()
 {
     changeBackCurrentScale += 1000/fps;
 
-    upDivision += moveSpeed;
-    downDivision += moveSpeed;
-    console.log(upDivision);
+    if (upDivision <= gameHeight * rate)
+    {
+        upDivision += moveSpeed;
+        downDivision += moveSpeed;
+    }
+    else 
+        console.log(upDivision);
+
 
     var index = (level + backgroundColorList.length - 1) % backgroundColorList.length;
     var preIndex = (level + backgroundColorList.length - 2) % backgroundColorList.length;
@@ -75,18 +82,18 @@ var changeBackground = function()
     if (downDivision <= gameHeight)
     {
         //画上面的渐变区域
-        var lGrd = ctx.createLinearGradient(gameWidth/2,upDivision,gameWidth/2,upDivision + gameHeight * rate);
+        var lGrd = ctx.createLinearGradient(gameWidth/2,upDivision,gameWidth/2,upDivision + gameHeight * (1-rate));
         lGrd.addColorStop(0,backgroundColorList[index]);
         lGrd.addColorStop(1,backgroundColorList[preIndex]);
         ctx.fillStyle = lGrd;
-        ctx.fillRect(0,0,gameWidth,upDivision + gameHeight * rate);
+        ctx.fillRect(0,0,gameWidth,upDivision + gameHeight * (1-rate));
 
         //画下面的纯色区域
         ctx.fillStyle = backgroundColorList[preIndex];
         ctx.fillRect(0,downDivision-moveSpeed,gameWidth,moveSpeed);
 
         //画下面的渐变区域
-        lGrd = ctx.createLinearGradient(gameWidth/2,downDivision,gameWidth/2,downDivision + gameHeight * rate);
+        lGrd = ctx.createLinearGradient(gameWidth/2,downDivision,gameWidth/2,downDivision + gameHeight * (1-rate));
         lGrd.addColorStop(0,backgroundColorList[preIndex]);
         lGrd.addColorStop(1,backgroundColorList[ppreIndex]);
         ctx.fillStyle = lGrd;
@@ -99,10 +106,10 @@ var changeBackground = function()
         ctx.fillRect(0,0,upDivision - moveSpeed,upDivision);
 
         //画上面的渐变区域
-        var lGrd = ctx.createLinearGradient(gameWidth/2,upDivision,gameWidth/2,upDivision + gameHeight * rate);
+        var lGrd = ctx.createLinearGradient(gameWidth/2,upDivision,gameWidth/2,upDivision + gameHeight * (1-rate));
         lGrd.addColorStop(0,backgroundColorList[index]);
         lGrd.addColorStop(1,backgroundColorList[preIndex]);
         ctx.fillStyle = lGrd;
-        ctx.fillRect(0,upDivision,gameWidth,upDivision + gameHeight * rate);
+        ctx.fillRect(0,upDivision,gameWidth,upDivision + gameHeight * (1-rate));
     }
 }
