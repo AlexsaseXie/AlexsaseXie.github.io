@@ -6,7 +6,7 @@ var roundRectX = (gameWidth-roundRectSize)/2;
 var roundRectY = (gameHeight-roundRectSize)/2;
 
 //黑球列表
-var blackBallList = [new BlackBall(100,100,0.5,0.2)];
+var blackBallList = [];
 
 //得分方块列表
 var pointList = [];
