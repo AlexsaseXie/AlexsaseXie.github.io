@@ -1,11 +1,14 @@
+////由谢运帷创建
 //按钮的颜色
 var buttonAutoColor = "#AEEEEE";
 var buttonSelectedColor = "#7EC0EE";
 var buttonBorderAutoColor = "#FFFFFF";
 var buttonBorderSelectedColor = "blue";
 
+//之前选择的按钮
 var previousChooseButton = [];
 
+//清除之前选择的按钮
 var clearChooseButton = function(){
     canvas.clearCanvasMouseEvent();
     if (previousChooseButton.length > 0)
@@ -16,7 +19,33 @@ var clearChooseButton = function(){
     }
 }
 
-//左边工具栏
+//处理按键事件
+var handleKeyEvent = function(e)
+{
+    switch(e.keyCode)
+    {
+        case 37:
+        {
+            canvas.controlCanvas('previous');
+            break;
+        }
+        case 39:
+        {
+            canvas.controlCanvas('next');
+            break;
+        }
+    }
+};
+
+//设置包裹canvas的div的大小
+var canvasResize = function()
+{
+    //改变包裹元素的大小
+    canvas.$el.style.width = canvas.canvasWidth + "px";
+    canvas.$el.style.height = canvas.canvasHeight + "px";
+}
+
+//左边工具栏区域
 var leftToolBar = new Vue({
     el: '#leftToolBar',
     data:{
@@ -84,8 +113,8 @@ class point {
 }
 //油漆桶工具的变量
 var leftX, rightX, topY, bottomY, leftData, rightData, topData, bottomData;
-var tmp = "255,255,255,255";   
 
+//画布区域
 var canvas = new Vue({
     el:'#drawing-area',
     data:{
@@ -132,6 +161,7 @@ var canvas = new Vue({
         this.saveCurrentMainCanvas('previous');
     },
     methods:{
+        ////由谢运帷创建
         //清除整个画布
         clearCanvas(){
             this.ctx.fillStyle = "#FFFFFF";
@@ -203,18 +233,10 @@ var canvas = new Vue({
 
             if (this.currentDrawFunc)
             {
-                //把按钮颜色恢复
-                //document.getElementById(this.currentDrawFunc).style.backgroundColor = buttonAutoColor;
-
                 //清空下一步队列
                 this.clearAfterCanvas();
                 //保存当前的主画布
                 this.saveCurrentMainCanvas('save');
-
-
-                //清空当前状态
-                //this.currentDrawFunc = "";
-                //this.clearCanvasMouseEvent();
             }
         },
         //使用直线
@@ -451,8 +473,8 @@ var canvas = new Vue({
             //清空预览画布内容
             this.previewCtx.clearRect(0,0,this.canvasWidth,this.canvasHeight);
         },
-        //顺时针旋转
-        rotateClockwise90()
+        //旋转90度
+        rotate90(input)
         {
             let mainCanvas = document.getElementById("mainCanvas");
             let previewCanvas = document.getElementById("previewCanvas");
@@ -466,43 +488,10 @@ var canvas = new Vue({
 
             this.previewCtx.save();
             this.previewCtx.translate(previewCanvas.width/2,previewCanvas.height/2);
-            this.previewCtx.rotate(Math.PI / 2);
-            this.previewCtx.drawImage(img,-previewCanvas.height/2,-previewCanvas.width/2);
-            this.previewCtx.restore();
-
-            //改变&清空主画布
-            mainCanvas.height = this.canvasWidth;
-            mainCanvas.width = this.canvasHeight;
-            this.canvasWidth = mainCanvas.width;
-            this.canvasHeight = mainCanvas.height;
-            //复制到主画布上
-            this.copyToMainCanvas();
-
-            //保存current画布
-            this.saveCurrentMainCanvas('save');
-            //清空下一步队列
-            this.clearAfterCanvas();
-
-            //如果长宽不相等 重新设置div的大小
-            if (this.canvasWidth!=this.canvasHeight)
-                canvasResize();
-        },
-        //逆时针旋转
-        rotateAntiClockwise90()
-        {
-            let mainCanvas = document.getElementById("mainCanvas");
-            let previewCanvas = document.getElementById("previewCanvas");
-
-            let img = document.getElementById("mainCanvas");
-            console.log(img);
-            //改变预览画布的大小
-            previewCanvas.height = this.canvasWidth;
-            previewCanvas.width = this.canvasHeight;
-            console.log(previewCanvas.width,previewCanvas.height);
-
-            this.previewCtx.save();
-            this.previewCtx.translate(previewCanvas.width/2,previewCanvas.height/2);
-            this.previewCtx.rotate(-Math.PI / 2);
+            if (input === 0)//顺时针
+                this.previewCtx.rotate(Math.PI / 2);
+            else 
+                this.previewCtx.rotate(-Math.PI / 2);
             this.previewCtx.drawImage(img,-previewCanvas.height/2,-previewCanvas.width/2);
             this.previewCtx.restore();
 
@@ -709,7 +698,7 @@ var canvas = new Vue({
         },
 
 
-        ////
+        ////由田宇创建
         open(){
             var imgfile = document.getElementById("open").files[0];
             if (!/image\/\w+/.test(imgfile.type)) {
@@ -954,7 +943,7 @@ var canvas = new Vue({
         },
         fillData(startX, startY) {
             //选中的位置的颜色
-            tmp = this.ctx.getImageData(startX, startY , 1, 1).data.slice(0, 4).toString();
+            var tmp = this.ctx.getImageData(startX, startY , 1, 1).data.slice(0, 4).toString();
             console.log(tmp);
             //四个方向的颜色
             topData = this.ctx.getImageData(startX, startY - 1, 1, 1).data.slice(0, 4).toString();
@@ -964,7 +953,7 @@ var canvas = new Vue({
 
             var s = new Array; //基准点集合
             s.push(new point(startX, startY));
-            this.fillline(s[0]);
+            this.fillline(s[0],tmp);
 
             var p = new point;
             var sX;
@@ -985,7 +974,7 @@ var canvas = new Vue({
                 while (topData === tmp && topY > 0) {
                     topY--;
                     topData = this.ctx.getImageData(sX, topY - 1, 1, 1).data.slice(0, 4).toString();
-                    p = this.fillline(new point(sX, topY));
+                    p = this.fillline(new point(sX, topY),tmp);
 
                     for (var i = p.x; i < p.y; i++) {
                         upUpBorder[i] = topY;
@@ -1014,7 +1003,7 @@ var canvas = new Vue({
                 while (bottomData === tmp && bottomY < canvas.canvasHeight) {
                     bottomY++;
                     bottomData = this.ctx.getImageData(sX, bottomY + 1, 1, 1).data.slice(0, 4).toString();
-                    p = this.fillline(new point(sX, bottomY));
+                    p = this.fillline(new point(sX, bottomY),tmp);
 
                     for (var i=p.x;i<p.y;i++){
                         downDownBorder[i] = bottomY;
@@ -1046,7 +1035,7 @@ var canvas = new Vue({
             }
         },
         //传入基准点，填充扫描线
-        fillline(p) {
+        fillline(p,tmp) {
 
             leftX = p.x;
             rightX = p.x;
@@ -1070,123 +1059,11 @@ var canvas = new Vue({
     }
 });
 
-//处理按键事件
-var handleKeyEvent = function(e)
-{
-    switch(e.keyCode)
-    {
-        case 37:
-        {
-            canvas.controlCanvas('previous');
-            break;
-        }
-        case 39:
-        {
-            canvas.controlCanvas('next');
-            break;
-        }
-    }
-};
-
-//设置canvas的大小
-var canvasResize = function()
-{
-    //改变包裹元素的大小
-    canvas.$el.style.width = canvas.canvasWidth + "px";
-    canvas.$el.style.height = canvas.canvasHeight + "px";
-}
-
-CanvasRenderingContext2D.prototype.ellipse = function (x, y, a, b) {
-    this.save();
-    var r = (a > b) ? a : b;
-    var ratioX = a / r;
-    var ratioY = b / r;
-    this.scale(ratioX, ratioY);
-    this.beginPath();
-    this.arc(x / ratioX, y / ratioY, r, 0, 2 * Math.PI, false);
-    this.closePath();
-    this.restore();
-    return this;
-};
 
 
-//设置按钮事件
-//window.onload = canvas.pencil;
 
 
-document.getElementById("pencil").onclick = function(){
-    clearChooseButton();
-    canvas.pencil();
-    previousChooseButton.push(this);
-}
 
-document.getElementById("bucket").onclick = function(){
-    clearChooseButton();
-    canvas.fill();
-    previousChooseButton.push(this);
-}
-
-document.getElementById("text").onclick = function(){
-    clearChooseButton();
-    canvas.text();
-    previousChooseButton.push(this);
-}
-
-document.getElementById("clear").onclick = function(){
-    clearChooseButton();
-    canvas.controlCanvas("clear");
-    previousChooseButton.push(this);
-}
-
-document.getElementById("eraser").onclick = function(){
-    clearChooseButton();
-    canvas.eraser0();
-    previousChooseButton.push(this);
-}
-
-document.getElementById("changesize").onclick = function(){
-    clearChooseButton();
-    canvas.changeSize();
-    previousChooseButton.push(this);
-    //重新设置div的大小
-    canvasResize();
-}
-
-//在已有图片基础上画
-document.getElementById("open").onchange = function(){
-    clearChooseButton();
-    canvas.open();
-}
-
-document.getElementById("save").onclick = function(){
-    clearChooseButton();
-    canvas.save();
-}
-
-document.getElementById("previous").onclick = function(){
-    canvas.controlCanvas('previous');
-}
-
-document.getElementById("next").onclick = function(){
-    canvas.controlCanvas('next');
-}
-
-canvas.clearCanvasMouseEvent();
-
-/**
- * 在本地进行文件保存
- * @param  {String} data     要保存到本地的图片数据
- * @param  {String} filename 文件名
- */
-var saveFile = function(data, filename){
-    var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
-    save_link.href = data;
-    save_link.download = filename;
-   
-    var event = document.createEvent('MouseEvents');
-    event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-    save_link.dispatchEvent(event);
-};
 
 
 

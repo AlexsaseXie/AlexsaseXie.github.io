@@ -5,6 +5,8 @@
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
         <link rel="stylesheet" type="text/css" href="css/all.css"/>
         <script type="text/javascript" src="js/Vue.js"></script>
+        <script type="text/javascript" src="js/saveFile.js"></script>
+        <script type="text/javascript" src="js/extraShapes.js"></script>
     </head>
     <body onkeyup="handleKeyEvent(event);">
         <div id="drawing-board">
@@ -32,7 +34,7 @@
                 </span> 
                 <p class="toolBarDivision">旋转</p>
                 <p id="rotateTool">
-                    <button id="Lrotate" onclick="canvas.rotateAntiClockwise90();" class="ctrlButton hint hint-top" data-hint="向左旋转90度"></button><button id="Rrotate" onclick="canvas.rotateClockwise90();" class="ctrlButton hint hint-top" data-hint="向右旋转90度"></button>
+                    <button id="Lrotate" onclick="canvas.rotate90(1);" class="ctrlButton hint hint-top" data-hint="向左旋转90度"></button><button id="Rrotate" onclick="canvas.rotate90(0);" class="ctrlButton hint hint-top" data-hint="向右旋转90度"></button>
                 </p>                  
                 <p class="toolBarDivision">粗细</p>
                 <select id="lineWidth" v-on:change="changeWidth()" class="hint hint-top" data-hint="调节笔触粗细"> 
@@ -60,4 +62,5 @@
         </div>
     </body>
     <script type="text/javascript" src="js/drawing-board.js"></script>
+    <script type="text/javascript" src="js/initButton.js"></script>
 </html>        
