@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="css/all.css"/>
+        <script type="text/javascript" src="js/Vue.js"></script>
+    </head>
+    <body onkeyup="handleKeyEvent(event);">
+        <div id="drawing-board">
+            <header id="header">
+                <button type="button" value="保存文件" id="save" class="ctrlButton hint hint-top" data-hint="保存成PNG格式的图片"/>
+                <button title="打开文件" id="openD" class= "ctrlButton hint hint-top" data-hint="加载一张图片到画布上">
+                    <input type="file" title="打开文件" accept="image/*" id="open" >
+                </button>
+                <div id="logo"></div>
+            </header>
+            <div id="headerPositionTaker"></div>
+            <div id="leftToolBar" v-bind:class="{'closeToolBar' : closed }" >
+                <button id="close" @click="toggle" v-bind:class="{'closeClose' : closed }"></button>
+                <p class="toolBarDivision" >工具</p>
+                <p id="classicTools">
+                    <button type="button" value="铅笔" id="pencil" class="ctrlButton hint hint-top" data-hint="铅笔"></button><button type="button" value="颜料桶" id="bucket" class="ctrlButton hint hint-top" data-hint="颜料桶"></button><button type="text"  value="input text" id="text" class="ctrlButton hint hint-top" data-hint="文本工具"></button><br><button type="button" value="橡皮擦" id="eraser" class="ctrlButton  hint hint-top" data-hint="橡皮"></button><button type="button" id="straw" value="straw" @click="chooseStraw();" class="ctrlButton hint hint-top" data-hint="吸管"></button>
+                </p>
+                <p class="toolBarDivision">颜色</p>
+                <p>                    
+                    <div><input id="color1" type="color" @change="changeColor1()" class="ctrlButton  hint hint-top" data-hint="选择颜色"/></div>
+                </p>
+                <p class="toolBarDivision">形状</p> 
+                <span id="shapeTool" class="shape" >
+                    <p><button v-for="(sh,index) in shapeTools" v-bind:value="sh" v-on:click="chooseShapeTool(sh)" v-bind:id="sh" class="ctrlButton hint hint-top" v-bind:data-hint="shapeToolHint[index]" > </button></p>
+                </span> 
+                <p class="toolBarDivision">旋转</p>
+                <p id="rotateTool">
+                    <button id="Lrotate" onclick="canvas.rotateAntiClockwise90();" class="ctrlButton hint hint-top" data-hint="向左旋转90度"></button><button id="Rrotate" onclick="canvas.rotateClockwise90();" class="ctrlButton hint hint-top" data-hint="向右旋转90度"></button>
+                </p>                  
+                <p class="toolBarDivision">粗细</p>
+                <select id="lineWidth" v-on:change="changeWidth()" class="hint hint-top" data-hint="调节笔触粗细"> 
+                    <option v-for="(w,index) in lineWidthChoices" v-bind:value="w"> {{w}}px </option> 
+                </select>
+                <p class="toolBarDivision">画布操作</p>
+                <p>     
+                    <button type="button" value="清除画布" id="clear" class="ctrlButton hint hint-top" data-hint="清除画布"></button><button type="button" value="增大画布" id="changesize" class="ctrlButton hint hint-top" data-hint="增大画布"></button><button type="button" value="上一步" id="previous" class="ctrlButton  hint hint-top" data-hint="上一步" v-bind:class="{ 'banned' : previousEmpty }"></button><button type="button" value="下一步" id="next" class="ctrlButton hint hint-top" data-hint="下一步" v-bind:class="{ 'banned' : nextEmpty }"></button>
+                </p>
+            </div>
+
+            <div id="drawing-area">
+                <canvas id="mainCanvas" width="600" height="400">
+                </canvas>
+                <canvas id="previewCanvas" width="600" height="400">
+                </canvas>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <footer id="footer">
+                <small>Copyright© 2017,Yunwei Xie & Yu Tian</small>
+            </footer>
+        </div>
+    </body>
+    <script type="text/javascript" src="js/drawing-board.js"></script>
+</html>        
