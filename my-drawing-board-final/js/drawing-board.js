@@ -668,6 +668,7 @@ var canvas = new Vue({
                     this.clearPreviousCanvas();
                     this.currentImg = "";
                     this.saveCurrentMainCanvas('previous');
+                    this.setDrawingSytle();
                 }
             }
             if (this.previousImg.length === 0)
